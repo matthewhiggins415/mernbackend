@@ -26,9 +26,9 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
 // SIGN UP
-// POST /sign-up
+// POST /register
 router.post('/register', (req, res, next) => {
-  console.log(req.body.credentials)
+  console.log(req.body)
   // start a promise chain, so that any errors will pass to `handle`
   Promise.resolve(req.body.credentials)
     // reject any requests where `credentials.password` is not present, or where
