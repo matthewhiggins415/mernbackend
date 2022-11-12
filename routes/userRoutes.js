@@ -45,7 +45,6 @@ router.post('/register', (req, res, next) => {
     .then(hash => {
       // return necessary params to create a user
       return {
-        name: req.body.credentials.name,
         email: req.body.credentials.email,
         isAdmin: req.body.credentials.isAdmin,
         hashedPassword: hash

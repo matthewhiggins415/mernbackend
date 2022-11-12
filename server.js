@@ -11,6 +11,9 @@ const bodyParser    = require('body-parser')
 
 //get routes 
 const userRoutes = require('./routes/userRoutes')
+const courseRoutes = require('./routes/courseRoutes')
+const sectionRoutes = require('./routes/sectionRoutes')
+const lessonRoutes = require('./routes/lessonRoutes')
 
 // connect the database
 const connectDB = async () => {
@@ -25,22 +28,27 @@ const connectDB = async () => {
     }
   }
   
-connectDB()
+connectDB();
 
-const app = express()
+const app = express();
 
-app.use(cors())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
   res.json({ message: `here's process.env.NODE_ENV: ${process.env.NODE_ENV}` })
 })
 
 // register passport authentication middlewar
-app.use(auth)
-app.use(userRoutes)
-
+app.use(auth);
+app.use(userRoutes);
+app.use(courseRoutes);
+app.use(sectionRoutes);
+app.use(lessonRoutes);
 
 let port = process.env.PORT || 5000
 
