@@ -38,4 +38,6 @@ router.get('/courses/:id', requireToken, async (req, res, next) => {
   //complete
 })
 
+// delete a course
+
 module.exports = router
