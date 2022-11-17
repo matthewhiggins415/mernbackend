@@ -43,6 +43,19 @@ app.get('/', (req, res) => {
   res.json({ message: `here's process.env.NODE_ENV: ${process.env.NODE_ENV}` })
 })
 
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Headers", "application/x-www-form-urlencoded",
+//     "Origin, X-Requested-Width, Content-Type, Accept, Authorization"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+//   )
+//   next();
+// });
+
 // register passport authentication middlewar
 app.use(auth);
 app.use(userRoutes);

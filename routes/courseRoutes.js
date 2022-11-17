@@ -9,7 +9,8 @@ const { Course } = require('../models/courseModel')
 // create a new course 
 router.post('/course', requireToken, async (req, res, next) => {
   let newCourse = await Course.create({});
-  res.json({ newCourse });
+  let courses = await Course.find({})
+  res.json({ courses });
   //complete
 })
 

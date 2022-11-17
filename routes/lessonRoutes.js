@@ -19,6 +19,7 @@ router.post('/course/:courseId/section/:sectionId/lesson', requireToken, async (
   });
   section.lessons.push(newLesson);
   let newSection = await section.save();
+  
   res.json({ newSection });
   //complete
 })
