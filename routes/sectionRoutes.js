@@ -28,7 +28,7 @@ router.get('/course/:id/sections', requireToken, async (req, res, next) => {
 // get a single section
 router.get('/section/:id', requireToken, async (req, res, next) => {
   let sectionID = req.params.id;
-  const section = await Section.findById(sectionID)
+  const section = await Section.findById(sectionID).populate("lessons")
   res.json({ section })
   //complete
 })
