@@ -5,7 +5,6 @@ const passport = require('passport')
 const requireToken = passport.authenticate('bearer', { session: false })
 
 const { Course } = require('../models/courseModel')
-const { findByIdAndDelete } = require('../models/userModel')
 
 // create a new course 
 router.post('/course', requireToken, async (req, res, next) => {
@@ -38,6 +37,27 @@ router.get('/courses/:id', requireToken, async (req, res, next) => {
   const course = await Course.findById(id).populate({path:"sections", model:"Section", populate: {path:'lessons', model:"Lesson"}});
   res.json({ course });
   //complete
+})
+
+// edit a single course 
+router.put('/course/:id', requireToken, async (req, res, next) => {
+  let id = req.params.id;
+  let data = req.body.course
+  let course = await Course.findById(id)
+
+  if (data.title) {
+    course.title = data.title;
+  }
+
+  if (data.isPublished) {
+    course.isPublished = data.isPublished
+  } else {
+    course.isPublished = false
+  }
+
+  let updatedCourse = await course.save();
+
+  res.json({ updatedCourse })
 })
 
 // delete a course
