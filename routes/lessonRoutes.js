@@ -41,6 +41,27 @@ router.get('/section/:id/lessons', requireToken, async (req, res, next) => {
 })
 
 // edit a lesson
+router.put('/lesson/:id', requireToken, async (req, res, next) => {
+  let lessonID = req.params.id;
+  let updatedLesson = req.body.lesson;
+  let lesson = await Lesson.findById(lessonID);
+
+  if (updatedLesson.title) {
+    lesson.title = updatedLesson.title;
+  };
+
+  if (updatedLesson.repo) {
+    lesson.repo = updatedLesson.repo;
+  };
+
+  if (updatedLesson.video) {
+    lesson.video = updatedLesson.video;
+  };
+
+  let newLesson = await lesson.save();
+  
+  res.json({ newLesson });
+})
 
 // delete a lesson
 router.delete('/section/:sectionId/lesson/:lessonId', requireToken, async (req, res, next) => {
