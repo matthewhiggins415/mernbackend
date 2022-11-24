@@ -34,6 +34,18 @@ router.get('/section/:id', requireToken, async (req, res, next) => {
 })
 
 // edit a section
+router.put('/section/:id', requireToken, async (req, res, next) => {
+  let sectionID = req.params.id;
+  let data = req.body.section;
+  let section = await Section.findById(sectionID).populate("lessons");
+
+  if (data.title) {
+    section.title = data.title;
+  };
+
+  let updatedSection = await section.save();
+  res.json({ updatedSection })
+})
 
 // delete a section
 router.delete('/course/:courseId/section/:sectionId', requireToken, async (req, res, next) => {

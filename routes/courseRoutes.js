@@ -56,7 +56,6 @@ router.put('/course/:id', requireToken, async (req, res, next) => {
   }
 
   let updatedCourse = await course.save();
-
   res.json({ updatedCourse })
 })
 
