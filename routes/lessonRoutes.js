@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const multer = require('multer');
+const path = require('path');
 
 const requireToken = passport.authenticate('bearer', { session: false })
 
@@ -38,6 +40,22 @@ router.get('/section/:id/lessons', requireToken, async (req, res, next) => {
   let lessons = await Lesson.find({ section_id: sectionID })
   res.json({ lessons })
   //complete
+})
+
+const fileStorageEngine = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../videos/'))
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname.toString())
+  }
+})
+
+const upload = multer({ storage: fileStorageEngine })
+
+router.post('/video', upload.single('video'), (req, res) => {
+  console.log(req.file.originalname)
+  res.json({'video': 'videos/' + req.file.originalname})
 })
 
 // edit a lesson
