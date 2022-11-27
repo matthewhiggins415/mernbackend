@@ -3,14 +3,17 @@ const router = express.Router();
 const passport = require('passport');
 const path = require('path');
 const fs = require('fs');
-const { chunk } = require('lodash');
+
+const { Lesson } = require('../models/courseModel')
 
 const requireToken = passport.authenticate('bearer', { session: false });
 
-router.get('/video', (req, res, next) => {
+router.get('/video/:video', async (req, res, next) => {
+  let videoTitle = req.params.video;
+
   let range = req.headers.range;
 
-  const videoPath = path.join(__dirname, '../videos/testRecording.mov');
+  const videoPath = path.join(__dirname, `../videos/${videoTitle}`);
 
   const videoSize = fs.statSync(videoPath).size;
 

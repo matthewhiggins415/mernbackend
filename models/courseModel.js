@@ -18,7 +18,7 @@ const lessonSchema = new Schema({
   },
   video: {
     type: String, 
-    default: '/video/path',
+    default: 'no video',
     required: false, 
   },
   repo: {

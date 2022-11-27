@@ -53,27 +53,35 @@ const fileStorageEngine = multer.diskStorage({
 
 const upload = multer({ storage: fileStorageEngine })
 
-router.post('/video', upload.single('video'), (req, res) => {
-  console.log(req.file.originalname)
-  res.json({'video': 'videos/' + req.file.originalname})
+router.post('/lesson/:id/video', upload.single('video'), requireToken, async (req, res, next) => {
+  let lessonID = req.params.id;
+
+  let lesson = await Lesson.findById(lessonID);
+  lesson.video = req.file.originalname;
+  let updatedLesson = await lesson.save();
+  res.json({ updatedLesson })
 })
 
 // edit a lesson
 router.put('/lesson/:id', requireToken, async (req, res, next) => {
   let lessonID = req.params.id;
   let updatedLesson = req.body.lesson;
+  console.log(req.files)
   let lesson = await Lesson.findById(lessonID);
 
   if (updatedLesson.title) {
     lesson.title = updatedLesson.title;
-  };
+  }
 
   if (updatedLesson.repo) {
     lesson.repo = updatedLesson.repo;
-  };
+  }
 
   if (updatedLesson.video) {
-    lesson.video = updatedLesson.video;
+    upload.single('video');
+    console.log(updatedLesson.video);
+    console.log(updatedLesson.video.name);
+    lesson.video = updatedLesson.video.name;
   };
 
   let newLesson = await lesson.save();
