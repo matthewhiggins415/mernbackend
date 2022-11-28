@@ -31,6 +31,12 @@ router.get('/courses', requireToken, async (req, res, next) => {
   //complete
 })
 
+//get all published courses
+router.get('/published/courses', requireToken, async (req, res, next) => {
+  const courses = await Course.find({ isPublished: true }).populate({path:"sections", model:"Section", populate: {path:'lessons', model:"Lesson"}});
+  res.json({ courses });
+})
+
 // get a single course 
 router.get('/courses/:id', requireToken, async (req, res, next) => {
   let id = req.params.id;
