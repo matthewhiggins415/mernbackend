@@ -9,6 +9,7 @@ const { Lesson } = require('../models/courseModel')
 const requireToken = passport.authenticate('bearer', { session: false });
 
 router.get('/video/:video', async (req, res, next) => {
+    
   let videoTitle = req.params.video;
 
   let range = req.headers.range;
