@@ -21,11 +21,25 @@ const lessonSchema = new Schema({
     default: 'no video',
     required: false, 
   },
+  goal: {
+    type: String,
+    default: 'lesson goal',
+    required: false
+  },
+  slack: {
+    type: String,
+    default: 'http://slack-link.com',
+    required: false, 
+  },
   repo: {
     type: String,
     default: 'http://repo-link.com',
     required: false, 
-  }
+  },
+  resources: [{
+    link: '',
+    description: ''
+  }]
 }, {
   timestamps: true, 
 })

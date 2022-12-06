@@ -5,6 +5,9 @@ const passport = require('passport')
 const requireToken = passport.authenticate('bearer', { session: false })
 
 const { Course } = require('../models/courseModel')
+const { Section } = require('../models/courseModel')
+const { Lesson } = require('../models/courseModel')
+
 
 // create a new course 
 router.post('/course', requireToken, async (req, res, next) => {
@@ -70,7 +73,9 @@ router.delete('/course/:id', requireToken, async(req, res, next) => {
   let id = req.params.id;
   
   try {
-    const course = await Course.findByIdAndDelete(id);
+    await Lesson.deleteMany({ course_id: id })
+    await Section.findByIdAndDelete({ course_id: id });
+    await Course.deleteMany({ course_id: id });
     res.status(201).json({ message: "course removed"});
   } catch(e) {
     res.status({ message: "unable to delete course."})
