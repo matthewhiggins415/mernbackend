@@ -37,8 +37,14 @@ const lessonSchema = new Schema({
     required: false, 
   },
   resources: [{
-    link: '',
-    description: ''
+    link: {
+      type: String,
+      default: 'resource link'
+    },
+    description: {
+      type: String, 
+      default: 'resource description'
+    }
   }]
 }, {
   timestamps: true, 
