@@ -85,7 +85,39 @@ const courseSchema = new Schema({
   },
   sections: [{
     type: mongoose.Schema.Types.ObjectId, ref: 'Section'
-  }]
+  }], 
+  thumbnail: {
+    type: String,
+    default: "thumbnailForCourse.png"
+  },
+  resources: [{
+    link: {
+      type: String,
+      default: 'resource link'
+    },
+    description: {
+      type: String, 
+      default: 'resource description'
+    }
+  }],
+  about: {
+    type: String, 
+    default: 'information about this course.'
+  }, 
+  slack: {
+    type: String,
+    default: 'http://slack-link.com',
+    required: false, 
+  },
+  video: {
+    type: String, 
+    default: 'no video',
+    required: false, 
+  },
+  price: {
+    type: Number,
+    default: 1,
+  }
 }, {
   timestamps: true, 
 })
