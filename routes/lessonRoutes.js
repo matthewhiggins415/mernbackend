@@ -84,6 +84,15 @@ router.put('/lesson/:id', requireToken, async (req, res, next) => {
     lesson.video = updatedLesson.video.name;
   };
 
+  if (updatedLesson.goal) {
+    lesson.goal = updatedLesson.goal;
+  }
+
+  if (updatedLesson.slack) {
+    lesson.slack = updatedLesson.slack;
+  }
+
+
   let newLesson = await lesson.save();
   
   res.json({ newLesson });
