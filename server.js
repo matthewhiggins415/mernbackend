@@ -14,7 +14,6 @@ const userRoutes = require('./routes/userRoutes')
 const courseRoutes = require('./routes/courseRoutes')
 const sectionRoutes = require('./routes/sectionRoutes')
 const lessonRoutes = require('./routes/lessonRoutes')
-const videoRoutes = require('./routes/videoRoutes')
 
 // connect the database
 const connectDB = async () => {
@@ -61,7 +60,6 @@ app.use(userRoutes);
 app.use(courseRoutes);
 app.use(sectionRoutes);
 app.use(lessonRoutes);
-app.use(videoRoutes);
 
 let port = process.env.PORT || 5000
 
