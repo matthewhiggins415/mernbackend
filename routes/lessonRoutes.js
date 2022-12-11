@@ -42,25 +42,25 @@ router.get('/section/:id/lessons', requireToken, async (req, res, next) => {
   //complete
 })
 
-const fileStorageEngine = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../videos/'))
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname.toString())
-  }
-})
+// const fileStorageEngine = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join(__dirname, '../videos/'))
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname.toString())
+//   }
+// })
 
-const upload = multer({ storage: fileStorageEngine })
+// const upload = multer({ storage: fileStorageEngine })
 
-router.post('/lesson/:id/video', upload.single('video'), requireToken, async (req, res, next) => {
-  let lessonID = req.params.id;
+// router.post('/lesson/:id/video', upload.single('video'), requireToken, async (req, res, next) => {
+//   let lessonID = req.params.id;
 
-  let lesson = await Lesson.findById(lessonID);
-  lesson.video = req.file.originalname;
-  let updatedLesson = await lesson.save();
-  res.json({ updatedLesson })
-})
+//   let lesson = await Lesson.findById(lessonID);
+//   lesson.video = req.file.originalname;
+//   let updatedLesson = await lesson.save();
+//   res.json({ updatedLesson })
+// })
 
 // edit a lesson
 router.put('/lesson/:id', requireToken, async (req, res, next) => {
@@ -77,12 +77,15 @@ router.put('/lesson/:id', requireToken, async (req, res, next) => {
     lesson.repo = updatedLesson.repo;
   }
 
+  // if (updatedLesson.video) {
+  //   upload.single('video');
+  //   console.log(updatedLesson.video);
+  //   console.log(updatedLesson.video.name);
+  //   lesson.video = updatedLesson.video.name;
+  // };
   if (updatedLesson.video) {
-    upload.single('video');
-    console.log(updatedLesson.video);
-    console.log(updatedLesson.video.name);
-    lesson.video = updatedLesson.video.name;
-  };
+    lesson.video = updatedLesson.video
+  }
 
   if (updatedLesson.goal) {
     lesson.goal = updatedLesson.goal;
