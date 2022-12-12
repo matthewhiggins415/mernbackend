@@ -48,6 +48,14 @@ router.get('/courses/:id', requireToken, async (req, res, next) => {
   //complete
 })
 
+// get basics of a single course 
+router.get('/courses/basics/:id', requireToken, async (req, res, next) => {
+  let id = req.params.id;
+  const course = await Course.findById(id);
+  res.json({ course });
+  //complete
+})
+
 // edit a single course 
 router.put('/course/:id', requireToken, async (req, res, next) => {
   let id = req.params.id;
@@ -62,6 +70,26 @@ router.put('/course/:id', requireToken, async (req, res, next) => {
     course.isPublished = data.isPublished
   } else {
     course.isPublished = false
+  }
+
+  if (data.thumbnail) {
+    course.thumbnail = data.thumbnail;
+  }
+
+  if (data.about) {
+    course.about = data.about;
+  }
+
+  if (data.discord) {
+    course.discord = data.discord;
+  }
+
+  if (data.video) {
+    course.video = data.video;
+  }
+
+  if (data.price) {
+    course.price = data.price;
   }
 
   let updatedCourse = await course.save();

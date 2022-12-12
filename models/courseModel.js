@@ -26,11 +26,6 @@ const lessonSchema = new Schema({
     default: 'lesson goal',
     required: false
   },
-  slack: {
-    type: String,
-    default: 'http://slack-link.com',
-    required: false, 
-  },
   repo: {
     type: String,
     default: 'http://repo-link.com',
@@ -104,9 +99,9 @@ const courseSchema = new Schema({
     type: String, 
     default: 'information about this course.'
   }, 
-  slack: {
+  discord: {
     type: String,
-    default: 'http://slack-link.com',
+    default: 'http://discord-link.com',
     required: false, 
   },
   video: {
