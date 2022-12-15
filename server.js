@@ -32,7 +32,8 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+// app.use(cors({ origin: 'https://mernguide.com' , credentials: true}));
+app.use(cors())
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
