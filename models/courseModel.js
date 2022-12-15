@@ -109,6 +109,11 @@ const courseSchema = new Schema({
     default: 'no video',
     required: false, 
   },
+  introductionVideo: {
+    type: String, 
+    default: 'introduction video',
+    required: false, 
+  },
   price: {
     type: Number,
     default: 1,

@@ -92,6 +92,10 @@ router.put('/course/:id', requireToken, async (req, res, next) => {
     course.price = data.price;
   }
 
+  if (data.introductionVid) {
+    course.introductionVideo = data.introductionVid;
+  }
+
   let updatedCourse = await course.save();
   res.json({ updatedCourse })
 })
