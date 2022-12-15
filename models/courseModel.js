@@ -35,10 +35,6 @@ const lessonSchema = new Schema({
     link: {
       type: String,
       default: 'resource link'
-    },
-    description: {
-      type: String, 
-      default: 'resource description'
     }
   }]
 }, {
