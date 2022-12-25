@@ -106,8 +106,8 @@ router.delete('/course/:id', requireToken, async(req, res, next) => {
   
   try {
     await Lesson.deleteMany({ course_id: id })
-    await Section.findByIdAndDelete({ course_id: id });
-    await Course.deleteMany({ course_id: id });
+    await Section.deleteMany({ course_id: id });
+    await Course.findByIdAndDelete(id);
     res.status(201).json({ message: "course removed"});
   } catch(e) {
     res.status({ message: "unable to delete course."})

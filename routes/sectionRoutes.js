@@ -6,6 +6,7 @@ const requireToken = passport.authenticate('bearer', { session: false });
 
 const { Section } = require('../models/courseModel');
 const { Course } = require('../models/courseModel');
+const { Lesson } = require('../models/courseModel')
 
 // create a new section 
 router.post('/course/:courseId/section', requireToken, async (req, res, next) => {
@@ -51,9 +52,15 @@ router.put('/section/:id', requireToken, async (req, res, next) => {
 router.delete('/course/:courseId/section/:sectionId', requireToken, async (req, res, next) => {
     let sectionID = req.params.sectionId;
     let courseID = req.params.courseId;
-    const section = await Section.findByIdAndRemove(sectionID);
-    let sections = await Section.find({ course_id: courseID })
-    res.json({ sections });
+
+    try {
+      await Lesson.deleteMany({ section_id: sectionID })
+      await Section.findByIdAndDelete(sectionID);
+      let sections = await Section.find({ course_id: courseID })
+      res.json({ sections });
+    } catch(e) {
+      res.status({ message: "unable to delete section."})
+    }
     // complete
 })
 
